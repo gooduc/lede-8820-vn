@@ -1,6 +1,3 @@
-local uci = luci.model.uci.cursor()
-local m, e
-
 m = Map("aliyundrive-webdav")
 m.title = translate("AliyunDrive WebDAV")
 m.description = translate("<a href=\"https://github.com/messense/aliyundrive-webdav\" target=\"_blank\">Project GitHub URL</a>")
@@ -28,6 +25,9 @@ port = e:option(Value, "port", translate("Port"))
 port.default = "8080"
 port.datatype = "port"
 
+tls_cert = e:option(Value, "tls_cert", translate("TLS certificate file path"))
+tls_key = e:option(Value, "tls_key", translate("TLS private key file path"))
+
 auth_user = e:option(Value, "auth_user", translate("Username"))
 auth_password = e:option(Value, "auth_password", translate("Password"))
 auth_password.password = true
@@ -46,6 +46,10 @@ cache_ttl.datatype = "uinteger"
 
 no_trash = e:option(Flag, "no_trash", translate("Delete file permanently instead of trashing"))
 no_trash.rmempty = false
+
+read_only = e:option(Flag, "read_only", translate("Enable read only mode"))
+read_only.description = translate("Disallow upload, modify and delete file operations")
+read_only.rmempty = false
 
 domain_id = e:option(Value, "domain_id", translate("Domain ID"))
 domain_id.description = translate("Input domain_id option will use <a href=\"https://www.aliyun.com/product/storage/pds\" target=\"_blank\">Aliyun PDS</a> instead of <a href=\"https://www.aliyundrive.com\" target=\"_blank\">AliyunDrive</a>")
